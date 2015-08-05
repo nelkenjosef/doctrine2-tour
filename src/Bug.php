@@ -1,10 +1,12 @@
 <?php
 // src/Bug.php
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * class for entity Bug
  *
- * @version 1.0
+ * @version 1.1
  * @author  nelkenjosef
  * @since   class available since release 1.1.0
  * @Entity(repositoryClass="BugRepository") @Table(name="bugs")
@@ -34,6 +36,16 @@ class Bug
      * @Column(name="status", type="string", length=16)
      */
     protected $_status;
+
+    /**
+     * @var Doctrine\Common\Collections\ArrayCollection
+     */
+    protected $_products;
+
+    public function __construct()
+    {
+        $this->_products = new ArrayCollection();
+    }
 
     /**
      * getter for $_id
