@@ -4,19 +4,22 @@
 /**
  * class for entity Product
  *
- * @version 1.0
+ * @version 2.0
  * @author  nelkenjosef
- * @since   class available since release 1.0
+ * @since   class available since release 1.0.0
+ * @Entity @Table(name="products")
  */
 class Product
 {
     /**
      * @var int
+     * @Column(name="id", type="integer") @Id @GeneratedValue
      */
     protected $_id;
 
     /**
      * @var string
+     * @Column(name="name", type="string", length=64)
      */
     protected $_name;
 
