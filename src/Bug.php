@@ -6,49 +6,72 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * class for entity Bug
  *
- * @version 1.1
+ * @Entity(repositoryClass="BugRepository") @Table(name="bugs")
+ * @version 1.2
  * @author  nelkenjosef
  * @since   class available since release 1.1.0
- * @Entity(repositoryClass="BugRepository") @Table(name="bugs")
  */
 class Bug
 {
     /**
-     * @var int
      * @Column(name="id", type="integer") @Id @GeneratedValue
+     * @var   int
+     * @since 1.0
      */
     protected $_id;
 
     /**
-     * @var string
      * @Column(name="description", type="string")
+     * @var   string
+     * @since 1.0
      */
     protected $_description;
 
     /**
-     * @var DateTime
      * @Column(name="created", type="datetime")
+     * @var   DateTime
+     * @since 1.0
      */
     protected $_created;
 
     /**
-     * @var string
      * @Column(name="status", type="string", length=16)
+     * @var   string
+     * @since 1.0
      */
     protected $_status;
 
     /**
-     * @var Doctrine\Common\Collections\ArrayCollection
+     * @var   Doctrine\Common\Collections\ArrayCollection
+     * @since 1.1
      */
     protected $_products;
 
+    /**
+     * @var   User
+     * @since 1.2
+     */
+    protected $_engineer;
+
+    /**
+     * @var   User
+     * @since 1.2
+     */
+    protected $_reporter;
+
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->_products = new ArrayCollection();
     }
 
     /**
-     * getter for $_id
+     * Getter for $_id
+     *
+     * @return int
+     * @since  1.0
      */
     public function getId()
     {
@@ -56,7 +79,10 @@ class Bug
     }
 
     /**
-     * getter for $_description
+     * Getter for $_description
+     *
+     * @return string
+     * @since  1.0
      */
     public function getDescription()
     {
@@ -64,9 +90,11 @@ class Bug
     }
 
     /**
-     * setter for $_description
+     * Setter for $_description
      *
-     * @param string $description
+     * @param  string $description
+     * @return void
+     * @since  1.0
      */
     public function setDescription($description)
     {
@@ -74,7 +102,10 @@ class Bug
     }
 
     /**
-     * getter for $_created
+     * Getter for $_created
+     *
+     * @return DateTime
+     * @since  1.0
      */
     public function getCreated()
     {
@@ -82,9 +113,11 @@ class Bug
     }
 
     /**
-     * setter for $_created
+     * Setter for $_created
      *
-     * @param DateTime $created
+     * @param  DateTime $created
+     * @return void
+     * @since  1.0
      */
     public function setCreated(DateTime $created)
     {
@@ -92,7 +125,10 @@ class Bug
     }
 
     /**
-     * getter for $_status
+     * Getter for $_status
+     *
+     * @return string
+     * @since  1.0
      */
     public function getStatus()
     {
@@ -100,12 +136,62 @@ class Bug
     }
 
     /**
-     * setter for $_status
+     * Setter for $_status
      *
-     * @param string $status
+     * @param  string $status
+     * @return void
+     * @since  1.0
      */
     public function setSatus($status)
     {
         $this->_status = $status;
+    }
+
+    /**
+     * Getter for $_engineer
+     *
+     * @return User
+     * @since  1.2
+     */
+    public function getEngineer()
+    {
+        return $this->_engineer;
+    }
+
+    /**
+     * Setter for $_engineer
+     *
+     * @param  User $engineer
+     * @return void
+     * @since  1.2
+     */
+    public function setEngineer(User $engineer)
+    {
+        $engineer->assignedToBug($this);
+        $this->_engineer = $engineer;
+    }
+
+    /**
+     * Getter for $_reporter
+     *
+     * @return User
+     * @since  1.2
+     */
+    public function getReporter()
+    {
+        return $this->_reporter;
+    }
+
+    /**
+     * Setter for $_reporter
+     *
+     * @param  User $reporter
+     * @return void
+     * @since  1.2
+     */
+    public function setReporter(User $reporter)
+    {
+        $reporter->addReportedBug($this);
+        $this->_reporter = $reporter;
     }
 }

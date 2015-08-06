@@ -6,35 +6,42 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * class for entity User
  *
- * @version 1.1
+ * @Entity @Table(name="users")
+ * @version 1.2
  * @author  nelkenjosef
  * @since   class available since release 1.1.0
- * @Entity @Table(name="users")
  */
 class User
 {
     /**
-     * @var int
      * @Column(name="id", type="integer") @Id @GeneratedValue
+     * @var   int
+     * @since 1.0
      */
     protected $_id;
 
     /**
-     * @var string
      * @Column(name="name", type="string", length=64)
+     * @var   string
+     * @since 1.0
      */
     protected $_name;
 
     /**
-     * @var Doctrine\Common\Collections\ArrayCollection
+     * @var   Doctrine\Common\Collections\ArrayCollection
+     * @since 1.1
      */
-    protected $_reportedBugs;
+    protected $_reportedBugs = null;
 
     /**
-     * @var Doctrine\Common\Collections\ArrayCollection
+     * @var   Doctrine\Common\Collections\ArrayCollection
+     * @since 1.1
      */
-    protected $_assignedBugs;
+    protected $_assignedBugs = null;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->_reportedBugs = new ArrayCollection();
@@ -42,7 +49,10 @@ class User
     }
 
     /**
-     * getter for $_id
+     * Getter for $_id
+     *
+     * @return int
+     * @since  1.0
      */
     public function getId()
     {
@@ -50,7 +60,10 @@ class User
     }
 
     /**
-     * getter for $_name
+     * Getter for $_name
+     *
+     * @return string
+     * @since  1.0
      */
     public function getName()
     {
@@ -58,12 +71,38 @@ class User
     }
 
     /**
-     * setter for $_name
+     * Setter for $_name
      *
-     * @param string $name
+     * @param  string $name
+     * @return void
+     * @since  1.0
      */
     public function setName($name)
     {
         $this->_name = $name;
+    }
+
+    /**
+     * Add reported bugs
+     *
+     * @param  Bug $bug
+     * @return void
+     * @since  1.2
+     */
+    public function addReportedBug(Bug $bug)
+    {
+        $this->_reportedBugs[] = $bug;
+    }
+
+    /**
+     * Assign user to bug
+     *
+     * @param  Bug $bug
+     * @return void
+     * @since  1.2
+     */
+    public function assignedToBug(Bug $bug)
+    {
+        $this->_assignedBugs[] = $bug;
     }
 }
