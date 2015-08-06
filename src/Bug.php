@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * class for entity Bug
  *
  * @Entity(repositoryClass="BugRepository") @Table(name="bugs")
- * @version 1.3
+ * @version 1.4
  * @author  nelkenjosef
  * @since   class available since release 1.1.0
  */
@@ -42,18 +42,21 @@ class Bug
     protected $_status;
 
     /**
-     * @var   Doctrine\Common\Collections\ArrayCollection
+     * @ManyToMany(targetEntity="Product")
+     * @var   Product[]
      * @since 1.1
      */
     protected $_products = null;
 
     /**
+     * @ManyToOne(targetEntity="User", inversedBy="_assignedBugs")
      * @var   User
      * @since 1.2
      */
     protected $_engineer;
 
     /**
+     * @ManyToOne(targetEntity="User", inversedBy="_reportedBugs")
      * @var   User
      * @since 1.2
      */
@@ -198,7 +201,7 @@ class Bug
     /**
      * Getter for $_products
      *
-     * @return Doctrine\Common\Collections\ArrayCollection
+     * @return Product[]
      * @since  1.3
      */
     public function getProducts()

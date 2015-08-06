@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * class for entity User
  *
  * @Entity @Table(name="users")
- * @version 1.2
+ * @version 1.3
  * @author  nelkenjosef
  * @since   class available since release 1.1.0
  */
@@ -28,13 +28,15 @@ class User
     protected $_name;
 
     /**
-     * @var   Doctrine\Common\Collections\ArrayCollection
+     * @OneToMany(targetEntity="Bug", mappedBy="reporter")
+     * @var   Bug[]
      * @since 1.1
      */
     protected $_reportedBugs = null;
 
     /**
-     * @var   Doctrine\Common\Collections\ArrayCollection
+     * @OneToMany(targetEntity="Bug", mappedBy="engineer")
+     * @var   Bug[]
      * @since 1.1
      */
     protected $_assignedBugs = null;
