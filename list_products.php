@@ -11,6 +11,7 @@
 
 require_once 'bootstrap.php';
 
+
 $productionRepository = $entityManager->getRepository('Product');
 $products = $productionRepository->findAll();
 
