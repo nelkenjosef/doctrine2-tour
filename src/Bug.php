@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * class for entity Bug
  *
  * @Entity(repositoryClass="BugRepository") @Table(name="bugs")
- * @version 1.2
+ * @version 1.3
  * @author  nelkenjosef
  * @since   class available since release 1.1.0
  */
@@ -45,7 +45,7 @@ class Bug
      * @var   Doctrine\Common\Collections\ArrayCollection
      * @since 1.1
      */
-    protected $_products;
+    protected $_products = null;
 
     /**
      * @var   User
@@ -193,5 +193,28 @@ class Bug
     {
         $reporter->addReportedBug($this);
         $this->_reporter = $reporter;
+    }
+
+    /**
+     * Getter for $_products
+     *
+     * @return Doctrine\Common\Collections\ArrayCollection
+     * @since  1.3
+     */
+    public function getProducts()
+    {
+        return $this->_products;
+    }
+
+    /**
+     * Assigns bugs to product
+     *
+     * @param  Product $product
+     * @return void
+     * @since  1.3
+     */
+    public function assignToProduct(Product $product)
+    {
+        $this->_products[] = $product;
     }
 }
